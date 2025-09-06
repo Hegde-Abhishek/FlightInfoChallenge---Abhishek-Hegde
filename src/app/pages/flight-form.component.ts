@@ -39,8 +39,7 @@ const AIRLINES = ['Delta','United','American','JetBlue','Southwest','Alaska','Sp
         <form [formGroup]="form" (ngSubmit)="submit()" class="grid-2" novalidate>
           <!-- Col 1 -->
           <div>
-            <!-- Airline with autocomplete -->
-            <mat-form-field appearance="outline" class="w100">
+            <mat-form-field appearance="fill" class="w100">
               <mat-label>Airline</mat-label>
               <input matInput formControlName="airline" [matAutocomplete]="auto" required>
               <mat-autocomplete #auto="matAutocomplete">
@@ -49,15 +48,13 @@ const AIRLINES = ['Delta','United','American','JetBlue','Southwest','Alaska','Sp
               <mat-error *ngIf="form.controls.airline.invalid">Select or type a valid airline</mat-error>
             </mat-form-field>
 
-            <!-- Flight number -->
-            <mat-form-field appearance="outline" class="w100">
+            <mat-form-field appearance="fill" class="w100">
               <mat-label>Flight number</mat-label>
               <input matInput placeholder="DL1234" formControlName="flightNumber" required>
               <mat-error *ngIf="form.controls.flightNumber.invalid">Flight number required</mat-error>
             </mat-form-field>
 
-            <!-- Guests -->
-            <mat-form-field appearance="outline" class="w100">
+            <mat-form-field appearance="fill" class="w100">
               <mat-label>Guests</mat-label>
               <input matInput type="number" min="1" formControlName="numOfGuests" required>
               <mat-error *ngIf="form.controls.numOfGuests.invalid">At least 1 guest</mat-error>
@@ -66,8 +63,7 @@ const AIRLINES = ['Delta','United','American','JetBlue','Southwest','Alaska','Sp
 
           <!-- Col 2 -->
           <div>
-            <!-- Date -->
-            <mat-form-field appearance="outline" class="w100">
+            <mat-form-field appearance="fill" class="w100">
               <mat-label>Arrival date</mat-label>
               <input matInput [matDatepicker]="picker" formControlName="arrivalDate" required>
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -75,15 +71,13 @@ const AIRLINES = ['Delta','United','American','JetBlue','Southwest','Alaska','Sp
               <mat-error *ngIf="form.controls.arrivalDate.invalid">Pick a date</mat-error>
             </mat-form-field>
 
-            <!-- Time -->
-            <mat-form-field appearance="outline" class="w100">
+            <mat-form-field appearance="fill" class="w100">
               <mat-label>Arrival time (HH:mm)</mat-label>
               <input matInput placeholder="08:45" formControlName="arrivalTime" required>
               <mat-error *ngIf="form.controls.arrivalTime.invalid">Format HH:mm (e.g., 08:45)</mat-error>
             </mat-form-field>
 
-            <!-- Comments -->
-            <mat-form-field appearance="outline" class="w100">
+            <mat-form-field appearance="fill" class="w100">
               <mat-label>Comments (optional)</mat-label>
               <textarea matInput rows="3" formControlName="comments"></textarea>
             </mat-form-field>
@@ -93,10 +87,15 @@ const AIRLINES = ['Delta','United','American','JetBlue','Southwest','Alaska','Sp
         <mat-divider style="margin: var(--space-4) 0;"></mat-divider>
 
         <div class="footer-actions">
-          <button mat-stroked-button (click)="copyPayload()" [disabled]="form.invalid">Copy JSON</button>
+          <button mat-stroked-button (click)="copyPayload()" [disabled]="form.invalid">
+          Copy JSON
+          <span class="material-icons" style="font-size:18px;margin-right:6px">content_copy</span>
+          </button>
           <button mat-raised-button color="primary" (click)="submit()" [disabled]="form.invalid || loading()">
             <mat-progress-spinner *ngIf="loading()" mode="indeterminate" diameter="18"></mat-progress-spinner>
-            <span *ngIf="!loading()">Submit</span>
+            <span *ngIf="!loading()">Submit
+            <span class="material-icons" style="font-size:18px;margin-right:6px;vertical-align:-4px">send</span>
+            </span>
           </button>
         </div>
 

@@ -16,6 +16,9 @@ import { MatIconModule } from '@angular/material/icon';
         <span class="material-icons" style="font-size:48px;color:#2e7d32">check_circle</span>
         <h2>All set!</h2>
         <p>Your flight info was submitted successfully.</p>
+        <p *ngIf="data?.airline">
+        <strong>Airline:</strong> {{data.airline}} • <strong>Flight:</strong> {{data.flightNumber}}
+        </p>
         <div style="display:flex; gap:12px; justify-content:center; margin-top:16px">
           <button mat-raised-button color="primary" (click)="again()">
             Submit another
@@ -28,6 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
   `
 })
 export class DoneComponent {
+    data = history.state as { airline?: string; flightNumber?: string };
   constructor(private router: Router, private location: Location) {}
   again(){ this.router.navigate(['/flight']); }
   back(){ this.router.navigate(['/login']) }

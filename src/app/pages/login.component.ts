@@ -23,26 +23,27 @@ import { AuthService } from '../shared/auth.service';
       </mat-card-header>
       <mat-card-content>
         <form (ngSubmit)="loginEmail()" class="login-form">
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
             <input matInput [(ngModel)]="email" name="email" required autocomplete="username">
           </mat-form-field>
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="fill">
             <mat-label>Password</mat-label>
             <input matInput type="password" [(ngModel)]="password" name="password" required autocomplete="current-password">
           </mat-form-field>
 
           <div class="actions">
-            <button mat-raised-button color="primary">Sign in</button>
+            <button mat-raised-button color="primary" class="signin-btn">Sign in</button>
           </div>
         </form>
 
         <mat-divider class="sep"></mat-divider>
 
         <button mat-stroked-button (click)="loginGoogle()" class="gbtn">
-          <span class="material-icons" style="margin-right:8px">login</span>
-          Sign in with Google
+            <span class="material-icons gicon">login</span>
+            Sign in with Google
         </button>
+
       </mat-card-content>
     </mat-card>
   </div>
@@ -51,7 +52,42 @@ import { AuthService } from '../shared/auth.service';
     .login-form { display: grid; gap: var(--space-4); }
     .actions { display: flex; justify-content: flex-end; }
     .sep { margin: var(--space-4) 0; }
-    .gbtn { width: 100%; }
+    .gbtn {
+  background: linear-gradient(135deg, #4285F4, #34A853);
+  color: white;
+  font-weight: 600;
+  text-transform: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+
+  .gicon {
+    margin-right: 12px;
+    transition: transform 0.3s ease;
+    font-size: 22px;
+  }
+
+  &:hover {
+    background: linear-gradient(135deg, #3367D6, #5e82e4ff);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+
+    .gicon {
+      transform: rotate(10deg) scale(1.2);
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+}
+
   `]
 })
 export class LoginComponent {
