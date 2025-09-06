@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --radius-xl: 16px;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #fafafa;
+}
+
+.page-shell {
+  min-height: calc(100dvh - 64px); /* minus toolbar */
+  display: grid;
+  place-items: start center;
+  padding: var(--space-6);
+}
+
+.card {
+  width: 100%;
+  max-width: 720px;
+  border-radius: var(--radius-xl);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+@media (max-width: 900px){
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+.mat-mdc-form-field { margin-bottom: var(--space-3); }
+
