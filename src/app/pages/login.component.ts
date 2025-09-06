@@ -37,56 +37,71 @@ import { AuthService } from '../shared/auth.service';
           </div>
         </form>
 
-        <mat-divider class="sep"></mat-divider>
-
-        <button mat-stroked-button (click)="loginGoogle()" class="gbtn">
-            <span class="material-icons gicon">login</span>
-            Sign in with Google
+        <mat-divider class="sep">or</mat-divider>
+         <div class="actions">
+        <button class="google-signin-clean" (click)="loginGoogle()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" />
+            <span>Sign in with Google</span>
         </button>
-
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
   `,
   styles: [`
-    .login-form { display: grid; gap: var(--space-4); }
-    .actions { display: flex; justify-content: flex-end; }
-    .sep { margin: var(--space-4) 0; }
-    .gbtn {
-  background: linear-gradient(135deg, #4285F4, #34A853);
-  color: white;
-  font-weight: 600;
-  text-transform: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  display: inline-flex;
-  align-items: center;
-  transition: all 0.3s ease;
+    .login-form { display: grid; gap: var(--space-4); margin-top: 20px; }
+    .actions { display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        margin-top: 1rem;
 
-  .gicon {
-    margin-right: 12px;
-    transition: transform 0.3s ease;
-    font-size: 22px;
-  }
-
-  &:hover {
-    background: linear-gradient(135deg, #3367D6, #5e82e4ff);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-
-    .gicon {
-      transform: rotate(10deg) scale(1.2);
+        @media (min-width: 480px) {
+            flex-direction: row;
+            justify-content: center;
+        }
     }
-  }
+    .sep { margin: var(--space-4) 0; }
+    .google-signin-clean {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 24px;
+        border-radius: 9999px;
+        font-weight: 500;
+        font-size: 15px;
+        color: #3c4043;
+        background-color: #fcffe2;
+        border: 1px solid rgba(63, 81, 181, 0.2);
+        box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px rgba(60, 64, 67, 0.15);
+        cursor: pointer;
+        transition: all 0.3s ease;
 
-  &:active {
-    transform: scale(0.98);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  }
-}
+        img {
+            width: 20px;
+            height: 20px;
+        }
+
+        span {
+            white-space: nowrap;
+        }
+
+        &:hover {
+            background-color: #f7f8f8;
+            box-shadow: 0 2px 6px rgba(60, 64, 67, 0.3), 0 6px 12px rgba(60, 64, 67, 0.15);
+        }
+
+        &:active {
+            background-color: #eee;
+            transform: scale(0.98);
+        }
+
+        &:focus {
+            outline: 2px solid #4285f4;
+            outline-offset: 2px;
+        }
+        }
+
 
   `]
 })

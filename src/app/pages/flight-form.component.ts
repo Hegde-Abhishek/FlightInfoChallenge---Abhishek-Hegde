@@ -71,11 +71,31 @@ const AIRLINES = ['Delta','United','American','JetBlue','Southwest','Alaska','Sp
               <mat-error *ngIf="form.controls.arrivalDate.invalid">Pick a date</mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="fill" class="w100">
-              <mat-label>Arrival time (HH:mm)</mat-label>
-              <input matInput placeholder="08:45" formControlName="arrivalTime" required>
-              <mat-error *ngIf="form.controls.arrivalTime.invalid">Format HH:mm (e.g., 08:45)</mat-error>
+            <div class="w100" style="display: flex; gap: 8px;">
+            <mat-form-field appearance="fill" style="flex: 0 0 100px;">
+                <mat-label>Hour</mat-label>
+                <mat-select formControlName="hour">
+                <mat-option *ngFor="let h of hours" [value]="h">{{ h }}</mat-option>
+                </mat-select>
             </mat-form-field>
+
+            <mat-form-field appearance="fill" style="flex: 0 0 100px;">
+                <mat-label>Minute</mat-label>
+                <mat-select formControlName="minute">
+                <mat-option *ngFor="let m of minutes" [value]="m">{{ m }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="flex: 0 0 100px;">
+                <mat-label>AM/PM</mat-label>
+                <mat-select formControlName="ampm">
+                <mat-option value="AM">AM</mat-option>
+                <mat-option value="PM">PM</mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>
+
+            <input type="hidden" formControlName="arrivalTime">
 
             <mat-form-field appearance="fill" class="w100">
               <mat-label>Comments (optional)</mat-label>
@@ -124,11 +144,31 @@ export class FlightFormComponent {
   form = this.fb.group({
     airline: ['', Validators.required],
     arrivalDate: [null as Date | null, Validators.required],
-    arrivalTime: ['', [Validators.required, Validators.pattern(/^\d{2}:\d{2}$/)]],
+    hour: ['', Validators.required],
+    minute: ['', Validators.required],
+    ampm: ['AM', Validators.required],
+    arrivalTime: ['', Validators.required],
     flightNumber: ['', Validators.required],
     numOfGuests: [1, [Validators.required, Validators.min(1)]],
     comments: ['']
   });
+
+  hours = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'));
+  minutes = Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0'));
+
+    constructor() {
+    this.form.valueChanges.subscribe(v => {
+        const { hour, minute, ampm } = v;
+        if (hour && minute && ampm) {
+        const h = parseInt(hour, 10);
+        const m = minute;
+        let h24 = h % 12;
+        if (ampm === 'PM') h24 += 12;
+        const arrivalTime = `${String(h24).padStart(2, '0')}:${m}`;
+        this.form.controls.arrivalTime.setValue(arrivalTime, { emitEvent: false });
+        }
+    });
+    }
 
   filteredAirlines() {
     const q = (this.form.value.airline || '').toLowerCase();
@@ -165,7 +205,7 @@ export class FlightFormComponent {
       });
       await this.svc.submit(payload);
       this.snack.open('Submitted successfully', 'OK', { duration: 1500 });
-      this.router.navigate(['/done'], { state: { airline: payload.airline, flightNumber: payload.flightNumber }});
+      this.router.navigate(['/done'], { state: payload});
     } catch (e:any) {
       this.error.set(e?.message || 'Submission failed. Please try again.');
       this.snack.open('Submission failed', 'Dismiss', { duration: 2500 });
