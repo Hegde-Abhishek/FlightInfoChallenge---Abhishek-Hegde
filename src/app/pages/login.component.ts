@@ -25,11 +25,14 @@ import { AuthService } from '../shared/auth.service';
         <form (ngSubmit)="loginEmail()" class="login-form">
           <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
-            <input matInput [(ngModel)]="email" name="email" required autocomplete="username">
+            <input matInput [(ngModel)]="email" name="email" required email #emailCtrl="ngModel" autocomplete="username">
+            <mat-error *ngIf="emailCtrl.errors?.['required']">Email is required</mat-error>
+            <mat-error *ngIf="emailCtrl.errors?.['email']">Enter a valid email</mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Password</mat-label>
-            <input matInput type="password" [(ngModel)]="password" name="password" required autocomplete="current-password">
+            <input matInput type="password" [(ngModel)]="password" name="password" required #passwordCtrl="ngModel" autocomplete="current-password">
+            <mat-error *ngIf="passwordCtrl.errors?.['required']">Enter a valid password</mat-error>
           </mat-form-field>
 
           <div class="actions">
@@ -37,7 +40,12 @@ import { AuthService } from '../shared/auth.service';
           </div>
         </form>
 
-        <mat-divider class="sep">or</mat-divider>
+        <div style="display: flex; align-items: center; margin: 16px 0;">
+            <mat-divider style="flex: 1;"></mat-divider>
+            <span style="margin: 0 12px; white-space: nowrap;">or</span>
+            <mat-divider style="flex: 1;"></mat-divider>
+        </div>
+
          <div class="actions">
         <button class="google-signin-clean" (click)="loginGoogle()">
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" />

@@ -99,7 +99,8 @@ const AIRLINES = ['Delta','United','American','JetBlue','Southwest','Alaska','Sp
 
             <mat-form-field appearance="fill" class="w100">
               <mat-label>Comments (optional)</mat-label>
-              <textarea matInput rows="3" formControlName="comments"></textarea>
+              <textarea matInput rows="3" maxlength="200" formControlName="comments"></textarea>
+              <mat-hint align="end">{{ form.controls.comments.value?.length || 0 }} / 200</mat-hint>
             </mat-form-field>
           </div>
         </form>

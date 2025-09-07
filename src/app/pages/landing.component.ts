@@ -1,31 +1,3 @@
-// import { Component, inject, signal } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-// import { RouterLink } from '@angular/router';
-// import { Auth, onAuthStateChanged } from '@angular/fire/auth';
-// import { MatButtonModule } from '@angular/material/button';
-
-// @Component({
-//   standalone: true,
-//   selector: 'app-landing',
-//   imports: [CommonModule, RouterLink, MatButtonModule],
-//   template: `
-//   <section class="hero">
-//     <h1>Flight Info Challenge</h1>
-//     <p>Authenticate to submit your flight details.</p>
-//     <a *ngIf="!user()" routerLink="/login" mat-raised-button color="primary">Sign in</a>
-//     <a *ngIf="user()" routerLink="/flight" mat-raised-button color="primary">Open form</a>
-//   </section>
-//   `,
-//   styles: [`.hero{max-width:720px;margin:80px auto;text-align:center;display:grid;gap:12px}`]
-// })
-// export class LandingComponent {
-//   user = signal<any>(null);
-//   constructor(){
-//     const auth = inject(Auth);
-//     onAuthStateChanged(auth, u => this.user.set(u));
-//   }
-// }
-
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -41,8 +13,8 @@ import { MatCardModule } from '@angular/material/card';
   template: `
   <section class="hero">
     <div class="hero-inner">
-      <h1>Flight Info Challenge</h1>
-      <p>Sign in, share your arrival details, and you’re done in under a minute.</p>
+      <h1>Flight Information</h1>
+      <p>Sign in, share your arrival details, and you’re done in under a minute (I promise!)</p>
       <a *ngIf="!user()" routerLink="/login" mat-raised-button color="primary" class="cta">Get started</a>
       <a *ngIf="user()" routerLink="/flight" mat-raised-button color="primary" class="cta">Open form</a>
     </div>
@@ -78,14 +50,30 @@ import { MatCardModule } from '@angular/material/card';
     .hero-inner{ max-width: 860px; margin: 0 auto; }
     .hero h1{ font-size: 2.2rem; margin: 0 0 8px; }
     .hero p{ opacity:.8; margin: 0 0 20px; }
-    .cta{ border-radius: 9999px; padding: 10px 22px; font-weight:600; }
+    .cta {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    box-shadow: 0 4px 10px rgba(63, 81, 181, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(63, 81, 181, 0.3);
+    }
 
     .steps{ max-width: 980px; margin: 24px auto 48px; display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; padding: 0 16px; }
-    .step{ text-align:center; padding: 18px 18px; border-radius: 16px; }
+    .step{ display:grid;grid-template-rows:auto auto 1fr;align-items:start;justify-items:center;text-align:center;padding:18px;border-radius:16px;box-shadow:0 4px 14px rgba(0,0,0,.06);background:#fff }
     .step mat-icon{ font-size:32px; height:32px; width:32px; color:#3949ab; }
     .step h3{ margin: 8px 0 6px; }
     .step p{ margin: 0; opacity:.8 }
     @media(max-width: 900px){ .steps{ grid-template-columns: 1fr; } }
+    .step:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #3f51b5;
+    }
   `]
 })
 export class LandingComponent {
